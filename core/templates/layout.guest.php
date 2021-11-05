@@ -52,7 +52,6 @@
 		</div>
 		<footer role="contentinfo">
 			<p class="info">
-				<?php print_unescaped($theme->getLongFooter()); ?>
 			</p>
 		</footer>
 	</body>
