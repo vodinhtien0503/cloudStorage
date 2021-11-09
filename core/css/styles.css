@@ -374,7 +374,6 @@ a.two-factor-cancel {
 	justify-content: center;
 	flex-direction: column;
 	max-width: 300px;
-	margin: 0 auto 1.2rem;
 }
 
 #body-login .grouptop input,

@@ -113,11 +113,19 @@ class RegisterController extends Controller {
 	 *
 	 * @return TemplateResponse|RedirectResponse
 	 */
-	public function showRegisterForm($username, $redirect_url, $email) {
+	public function showRegisterForm($username, $redirect_url) {
 
 		$parameters = [];
+		$loginMessages = $this->session->get('loginMessages');
 		$errors = [];
 		$messages = [];
+		if (\is_array($loginMessages)) {
+			list($errors, $messages) = $loginMessages;
+		}
+		$this->session->remove('loginMessages');
+		foreach ($errors as $value) {
+			$parameters[$value] = true;
+		}
 
 		$parameters['messages'] = $messages;
 		if ($username !== null && $username !== '') {
@@ -131,50 +139,35 @@ class RegisterController extends Controller {
 			$parameters['redirect_url'] = $redirect_url;
 		}
 
-		if ($email !== null && $email !== '') {
-			$parameters['emailName'] = $email;
-			$parameters['user_autofocus'] = false;
-		} else {
-			$parameters['emailName'] = '';
-			$parameters['user_autofocus'] = true;
-		}
-
-		/**
-		 * If redirect_url is not empty and remember_login is null and
-		 * user not logged in and check if the string
-		 * webroot+"/index.php/f/" is in redirect_url then
-		 * user is trying to access files for which he needs to login.
-		 */
-
 		if (!empty($redirect_url) &&
 			(\strpos(
 				$this->urlGenerator->getAbsoluteURL(\urldecode($redirect_url)),
 				$this->urlGenerator->getAbsoluteURL('/index.php/f/')
 			) !== false)) {
 			$parameters['accessLink'] = true;
-		}
-
-		$licenseMessageInfo = $this->licenseManager->getLicenseMessageFor('core');
-		// show license message only if there is a license
-		$licenseState = $licenseMessageInfo['license_state'];
-		if ($licenseState !== ILicenseManager::LICENSE_STATE_MISSING) {
-			// license type === 1 implies it's a demo license
-			if ($licenseMessageInfo['type'] === 1 ||
-				($licenseState !== ILicenseManager::LICENSE_STATE_VALID &&
-					$licenseState !== ILicenseManager::LICENSE_STATE_ABOUT_TO_EXPIRE)
-			) {
-				$parameters['licenseMessage'] = \implode('<br/>', $licenseMessageInfo['translated_message']);
-			}
-		}
-
-
-		return new TemplateResponse(
-			$this->appName,
-			'register',
-			$parameters,
-			'guest'
-		);
 	}
+
+	$licenseMessageInfo = $this->licenseManager->getLicenseMessageFor('core');
+		// show license message only if there is a license
+	$licenseState = $licenseMessageInfo['license_state'];
+	if ($licenseState !== ILicenseManager::LICENSE_STATE_MISSING) {
+			// license type === 1 implies it's a demo license
+		if ($licenseMessageInfo['type'] === 1 ||
+			($licenseState !== ILicenseManager::LICENSE_STATE_VALID &&
+				$licenseState !== ILicenseManager::LICENSE_STATE_ABOUT_TO_EXPIRE)
+		) {
+			$parameters['licenseMessage'] = \implode('<br/>', $licenseMessageInfo['translated_message']);
+	}
+}
+
+
+return new TemplateResponse(
+	$this->appName,
+	'register',
+	$parameters,
+	'guest'
+);
+}
 
 	/**
 	 * @PublicPage
@@ -188,7 +181,7 @@ class RegisterController extends Controller {
 	 * @throws \OCP\PreConditionNotMetException
 	 * @throws \OC\User\LoginException
 	 */
-	public function tryRegister($username, $password, $redirect_url, $timezone = null,) {
+	public function tryRegister($username, $password, $redirect_url) {
 
 		// $currentUser = $this->userSession->getUser();
 
@@ -219,20 +212,32 @@ class RegisterController extends Controller {
 		// 		$groups = $gids;
 		// 	}
 		// }
-
+		$args = [];
+		$regexPassword = '/^(?=.*[0-9])(?=.*[A-Z]).{8,}$/';
+		if (!empty($redirect_url)) {
+				$args['redirect_url'] = $redirect_url;
+			} 
 		'@phan-var \OC\User\Manager $this->userManager';
 		if ($this->userManager->userExists($username)) {
-			return new DataResponse(
-				[
-					'message' => (string)$this->l10n->t('A user with that name already exists.')
-				],
-				Http::STATUS_CONFLICT
-			);
+			// return new DataResponse(
+			// 	[
+			// 		'message' => (string)$this->l10n->t('A user with that name already exists.')
+			// 	],
+			// 	Http::STATUS_CONFLICT
+			// );
+			$this->session->set('loginMessages',[ ['userExists'], []]);
+			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 		}
 
 		try {
 			if (($password !== '') && ($username !== '')) {
+				if(preg_match($regexPassword, $password)){
 				$password =  password_hash($password, PASSWORD_DEFAULT);
+			}
+			else {
+				$this->session->set('loginMessages',[ ['invalidpassword'], []]);
+			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
+			}
 			}
 			$user = $this->userManager->createUser($username, $password);
 		} catch (\Exception $exception) {
@@ -240,53 +245,18 @@ class RegisterController extends Controller {
 			if (!$message) {
 				$message = $this->l10n->t('Unable to create user.');
 			}
-			return new DataResponse(
-				[
-					'message' => (string) $message,
-				],
-				Http::STATUS_FORBIDDEN
-			);
+			$this->session->set('loginMessages',[ ['unable'], []]);
+			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 		}
 
-		if ($user instanceof User) {
-			if ($groups !== null) {
-				foreach ($groups as $groupName) {
-					$group = $this->groupManager->get($groupName);
-
-					if (empty($group)) {
-						$group = $this->groupManager->createGroup($groupName);
-					}
-					$group->addUser($user);
-				}
-			}
-			/**
-			 * Send new user mail only if a mail is set
-			 */
-			if ($email !== '') {
-				$user->setEMailAddress($email);
-
-				try {
-					'@phan-var \OC\Settings\Controller\UsersController $this';
-					$this->generateTokenAndSendMail($user, $email);
-				} catch (\Exception $e) {
-					$this->log->error("Can't send new user mail to $email: " . $e->getMessage(), ['app' => 'settings']);
-				}
-			}
-			// fetch users groups
-			$userGroups = $this->groupManager->getUserGroupIds($user);
-
-			return new DataResponse(
-				$this->formatUserForIndex($user, $userGroups),
-				Http::STATUS_CREATED
-			);
-		}
-
-		return new DataResponse(
-			[
-				'message' => (string)$this->l10n->t('User was created.')
-			],
-			Http::STATUS_CREATED
-		);
+		// return new DataResponse(
+		// 	[
+		// 		'message' => (string)$this->l10n->t('User was created.')
+		// 	],
+		// 	Http::STATUS_CREATED
+		// );
+		$this->session->set('loginMessages',[ ['created'], []]);
+		return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 	}
-		
+
 }
