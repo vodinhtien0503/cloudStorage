@@ -188,7 +188,7 @@ class RegisterController extends Controller {
 	 * @throws \OCP\PreConditionNotMetException
 	 * @throws \OC\User\LoginException
 	 */
-	public function tryRegister($username, $password, $redirect_url, $timezone = null,) {
+	public function tryRegister($username, $password, $redirect_url, $timezone = null) {
 
 		// $currentUser = $this->userSession->getUser();
 
@@ -232,9 +232,10 @@ class RegisterController extends Controller {
 
 		try {
 			if (($password !== '') && ($username !== '')) {
-				$password =  password_hash($password, PASSWORD_DEFAULT);
+				// $password =  password_hash($password, PASSWORD_DEFAULT);\
+				$user = $this->userManager->createUser($username, $password);
+
 			}
-			$user = $this->userManager->createUser($username, $password);
 		} catch (\Exception $exception) {
 			$message = $exception->getMessage();
 			if (!$message) {
