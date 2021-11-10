@@ -232,14 +232,14 @@ return new TemplateResponse(
 		try {
 			if (($password !== '') && ($username !== '')) {
 				if(preg_match($regexPassword, $password)){
-				$password =  password_hash($password, PASSWORD_DEFAULT);
+					$user = $this->userManager->createUser($username, $password);
 			}
 			else {
 				$this->session->set('loginMessages',[ ['invalidpassword'], []]);
 			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 			}
-			}
-			$user = $this->userManager->createUser($username, $password);
+		}
+	
 		} catch (\Exception $exception) {
 			$message = $exception->getMessage();
 			if (!$message) {
