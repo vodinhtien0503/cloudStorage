@@ -116,13 +116,13 @@ class RegisterController extends Controller {
 	public function showRegisterForm($username, $redirect_url) {
 
 		$parameters = [];
-		$loginMessages = $this->session->get('loginMessages');
+		$registerMessages = $this->session->get('registerMessages');
 		$errors = [];
 		$messages = [];
-		if (\is_array($loginMessages)) {
-			list($errors, $messages) = $loginMessages;
+		if (\is_array($registerMessages)) {
+			list($errors, $messages) = $registerMessages;
 		}
-		$this->session->remove('loginMessages');
+		$this->session->remove('registerMessages');
 		foreach ($errors as $value) {
 			$parameters[$value] = true;
 		}
@@ -215,8 +215,8 @@ return new TemplateResponse(
 		$args = [];
 		$regexPassword = '/^(?=.*[0-9])(?=.*[A-Z]).{8,}$/';
 		if (!empty($redirect_url)) {
-				$args['redirect_url'] = $redirect_url;
-			} 
+			$args['redirect_url'] = $redirect_url;
+		} 
 		'@phan-var \OC\User\Manager $this->userManager';
 		if ($this->userManager->userExists($username)) {
 			// return new DataResponse(
@@ -225,7 +225,7 @@ return new TemplateResponse(
 			// 	],
 			// 	Http::STATUS_CONFLICT
 			// );
-			$this->session->set('loginMessages',[ ['userExists'], []]);
+			$this->session->set('registerMessages',[ ['userExists'], []]);
 			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 		}
 
@@ -233,13 +233,13 @@ return new TemplateResponse(
 			if (($password !== '') && ($username !== '')) {
 				if(preg_match($regexPassword, $password)){
 					$user = $this->userManager->createUser($username, $password);
+				}
+				else {
+					$this->session->set('registerMessages',[ ['invalidpassword'], []]);
+					return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
+				}
 			}
-			else {
-				$this->session->set('loginMessages',[ ['invalidpassword'], []]);
-			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
-			}
-		}
-	
+
 		} catch (\Exception $exception) {
 			$message = $exception->getMessage();
 			if (!$message) {
@@ -255,7 +255,7 @@ return new TemplateResponse(
 		// 	],
 		// 	Http::STATUS_CREATED
 		// );
-		$this->session->set('loginMessages',[ ['created'], []]);
+		$this->session->set('registerMessages',[ ['created'], []]);
 		return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 	}
 
