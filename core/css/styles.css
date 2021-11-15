@@ -666,6 +666,9 @@ form#alternative-logins {
 #alternative-logins li:first-child {
 	margin-top: 0;
 }
+.link_register {
+	color: white;
+}
 
 #alternative-logins li a.button,
 html #body-login input[type="submit"],
