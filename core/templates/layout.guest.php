@@ -29,7 +29,7 @@
 		<?php print_unescaped($_['headers']); ?>
 	</head>
 	<body id="<?php p($_['bodyid']);?>" <?php
-	if ($theme->getName() !== 'ownCloud') {
+	if ($theme->getName() !== 'CloudTT') {
 		print_unescaped('class="theme-' . \str_replace(' ', '-', $theme->getName()) . ' has-theme"');
 	} ?> >
 		<?php include('layout.noscript.warning.php'); ?>
