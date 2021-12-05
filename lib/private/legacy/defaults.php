@@ -60,9 +60,9 @@ class OC_Defaults {
 		$this->config = \OC::$server->getConfig();
 		$version = \OCP\Util::getVersion();
 
-		$this->defaultEntity = 'CloudTT'; /* e.g. company name, used for footers and copyright notices */
-		$this->defaultName = 'CloudTT'; /* short name, used when referring to the software */
-		$this->defaultTitle = 'CloudTT'; /* can be a longer name, for titles */
+		$this->defaultEntity = 'VKU_Cloud'; /* e.g. company name, used for footers and copyright notices */
+		$this->defaultName = 'VKU_Cloud'; /* short name, used when referring to the software */
+		$this->defaultTitle = 'VKU_Cloud'; /* can be a longer name, for titles */
 		$this->defaultBaseUrl = 'http://cloud.com';
 		$this->defaultSyncClientUrl = 'https://owncloud.com/desktop-app/';
 		$this->defaultiTunesAppId = '1359583808';
