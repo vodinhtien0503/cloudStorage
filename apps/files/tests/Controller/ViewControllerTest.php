@@ -258,57 +258,57 @@ class ViewControllerTest extends TestCase {
 				'icon' => '',
 			],
 		]);
-		$nav->assign('webdavUrl', 'http://example.org/owncloud/remote.php/dav/files/test%40%23%3F%25test/');
+		// $nav->assign('webdavUrl', 'http://example.org/owncloud/remote.php/dav/files/test%40%23%3F%25test/');
 
-		$expected = new Http\TemplateResponse(
-			'files',
-			'index',
-			[
-				'usedSpacePercent' => 123,
-				'owner' => 'MyName',
-				'ownerDisplayName' => 'MyDisplayName',
-				'isPublic' => false,
-				'defaultFileSorting' => 'name',
-				'defaultFileSortingDirection' => 'asc',
-				'showHiddenFiles' => 0,
-				'fileNotFound' => 0,
-				'mailNotificationEnabled' => 'no',
-				'mailPublicNotificationEnabled' => 'no',
-				'socialShareEnabled' => 'yes',
-				'allowShareWithLink' => 'yes',
-				'appNavigation' => $nav,
-				'appContents' => [
-					[
-						'id' => 'files',
-						'content' => null,
-					],
-					[
-						'id' => 'favorites',
-						'content' => null,
-					],
-					[
-						'id' => 'sharingin',
-						'content' => null,
-					],
-					[
-						'id' => 'sharingout',
-						'content' => null,
-					],
-					[
-						'id' => 'sharinglinks',
-						'content' => null,
-					],
-					[
-						'id' => 'systemtagsfilter',
-						'content' => null,
-					],
-					[
-						'id' => 'trashbin',
-						'content' => null,
-					],
-				],
-			]
-		);
+		// $expected = new Http\TemplateResponse(
+		// 	'files',
+		// 	'index',
+		// 	[
+		// 		'usedSpacePercent' => 123,
+		// 		'owner' => 'MyName',
+		// 		'ownerDisplayName' => 'MyDisplayName',
+		// 		'isPublic' => false,
+		// 		'defaultFileSorting' => 'name',
+		// 		'defaultFileSortingDirection' => 'asc',
+		// 		'showHiddenFiles' => 0,
+		// 		'fileNotFound' => 0,
+		// 		'mailNotificationEnabled' => 'no',
+		// 		'mailPublicNotificationEnabled' => 'no',
+		// 		'socialShareEnabled' => 'yes',
+		// 		'allowShareWithLink' => 'yes',
+		// 		'appNavigation' => $nav,
+		// 		'appContents' => [
+		// 			[
+		// 				'id' => 'files',
+		// 				'content' => null,
+		// 			],
+		// 			[
+		// 				'id' => 'favorites',
+		// 				'content' => null,
+		// 			],
+		// 			[
+		// 				'id' => 'sharingin',
+		// 				'content' => null,
+		// 			],
+		// 			[
+		// 				'id' => 'sharingout',
+		// 				'content' => null,
+		// 			],
+		// 			[
+		// 				'id' => 'sharinglinks',
+		// 				'content' => null,
+		// 			],
+		// 			[
+		// 				'id' => 'systemtagsfilter',
+		// 				'content' => null,
+		// 			],
+		// 			[
+		// 				'id' => 'trashbin',
+		// 				'content' => null,
+		// 			],
+		// 		],
+		// 	]
+		// );
 		$policy = new Http\ContentSecurityPolicy();
 		$policy->addAllowedFrameDomain('\'self\'');
 		$expected->setContentSecurityPolicy($policy);
