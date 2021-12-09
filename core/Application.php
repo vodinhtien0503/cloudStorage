@@ -35,7 +35,6 @@ use OC\Core\Controller\CloudController;
 use OC\Core\Controller\CronController;
 use OC\Core\Controller\LicenseController;
 use OC\Core\Controller\LoginController;
-use OC\Core\Controller\RegisterController;
 use OC\Core\Controller\LostController;
 use OC\Core\Controller\RolesController;
 use OC\Core\Controller\TokenController;
@@ -110,20 +109,6 @@ class Application extends App {
 				$c->query('UserSession'),
 				$server->getRootFolder(),
 				$c->query('Logger')
-			);
-		});
-		$container->registerService('RegisterController', static function (SimpleContainer $c) {
-			return new RegisterController(
-				$c->query('AppName'),
-				$c->query('Request'),
-				$c->query('UserManager'),
-				$c->query('Config'),
-				$c->query('Session'),
-				$c->query('UserSession'),
-				$c->query('L10N'),
-				$c->query('Mailer'),
-				$c->query('URLGenerator'),
-				$c->query('ServerContainer')->getLicenseManager()
 			);
 		});
 		$container->registerService('LoginController', static function (SimpleContainer $c) {

@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 /** @var \OCP\IL10N $l */
 /** @var array $_ */
 script('federatedfilesharing', 'settings-personal-general');
@@ -73,4 +73,4 @@ if ($_['showShareIT']) {
 } ?>
 
 	</div>
-<?php endif; ?> -->
+<?php endif; ?>

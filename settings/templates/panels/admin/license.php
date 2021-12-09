@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 script('settings', 'panels/license');
 ?>
 <div class="section">
@@ -20,4 +20,4 @@ script('settings', 'panels/license');
 		<br>
 		<input id="license_remove_button" type="button" value="<?php p($l->t('Remove current license key')); ?>"/>
 	</div>
-</div> -->
+</div>

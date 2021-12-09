@@ -453,7 +453,13 @@ class UsersController extends Controller {
 
 		try {
 			if (($password === '') && ($email !== '')) {
-					$password =  User::PASSWORD;
+				$event = new GenericEvent();
+				$this->eventDispatcher->dispatch($event, 'OCP\User::createPassword');
+				if ($event->hasArgument('password')) {
+					$password = $event->getArgument('password');
+				} else {
+					$password = $this->secureRandom->generate(20);
+				}
 			}
 			$user = $this->userManager->createUser($username, $password);
 		} catch (\Exception $exception) {

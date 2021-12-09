@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 /**
  * @var array $_
  * @var \OCP\IL10N $l
@@ -154,4 +154,4 @@ script('settings', 'panels/setupchecks');
 	<div id="security-warning-state">
 		<span class="hidden icon-checkmark"><?php p($l->t('All checks passed.'));?></span>
 	</div>
-</div> -->
+</div>

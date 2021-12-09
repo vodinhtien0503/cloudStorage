@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 /**
  * @var array $_
  * @var \OCP\IL10N $l
@@ -19,4 +19,4 @@ script('settings', 'panels/legal');
 		   value='<?php p($_['legal_privacy_policy']) ?>' />
 		<span id="legal_privacy_policy_msg" class="msg"></span>
 	</p>
-</div> -->
+</div>

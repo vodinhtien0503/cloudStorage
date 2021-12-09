@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 /**
  * @var array $_
  * @var \OCP\IL10N $l
@@ -39,4 +39,4 @@ $levelLabels = [
 			</em>
 		<?php endif; ?>
 	</div>
-<?php endif; ?> -->
+<?php endif; ?>

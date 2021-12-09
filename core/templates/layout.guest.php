@@ -29,7 +29,7 @@
 		<?php print_unescaped($_['headers']); ?>
 	</head>
 	<body id="<?php p($_['bodyid']);?>" <?php
-	if ($theme->getName() !== 'VKU Cloud') {
+	if ($theme->getName() !== 'ownCloud') {
 		print_unescaped('class="theme-' . \str_replace(' ', '-', $theme->getName()) . ' has-theme"');
 	} ?> >
 		<?php include('layout.noscript.warning.php'); ?>
@@ -52,6 +52,7 @@
 		</div>
 		<footer role="contentinfo">
 			<p class="info">
+				<?php print_unescaped($theme->getLongFooter()); ?>
 			</p>
 		</footer>
 	</body>
