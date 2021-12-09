@@ -63,7 +63,7 @@ class OC_Defaults {
 		$this->defaultEntity = 'VKU Cloud'; /* e.g. company name, used for footers and copyright notices */
 		$this->defaultName = 'VKU Cloud'; /* short name, used when referring to the software */
 		$this->defaultTitle = 'VKU Cloud'; /* can be a longer name, for titles */
-		$this->defaultBaseUrl = 'http://cloud.com';
+		$this->defaultBaseUrl = 'https://vku.udn.vn/';
 		$this->defaultSyncClientUrl = 'https://owncloud.com/desktop-app/';
 		$this->defaultiTunesAppId = '1359583808';
 		$this->defaultDocBaseUrl = 'https://doc.owncloud.com';
