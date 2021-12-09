@@ -134,6 +134,11 @@ script('core', [
 		<input type="hidden" name="requesttoken" value="<?php p($_['requesttoken']) ?>">
 
 </form>
+<div>
+	<a class="link_register" href="<?php print_unescaped(link_to('index.php', 'register')); ?>">
+		<?php p($l->t('Register?')); ?>
+	</a>
+</div>
 <?php if (!empty($_['alt_login'])) {
 				?>
 <form id="alternative-logins">
