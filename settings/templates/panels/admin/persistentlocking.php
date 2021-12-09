@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 script('settings', 'panels/persistentlocking');
 /**
  * @var array $_
@@ -39,4 +39,4 @@ script('settings', 'panels/persistentlocking');
 		</em>
 	</p>
 
-</div>
+</div> -->

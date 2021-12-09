@@ -11,7 +11,7 @@
 		<?php
 } ?>
 	</ul>
-	<div id="app-settings">
+	<!-- <div id="app-settings">
 		<div id="app-settings-header">
 			<button class="settings-button" data-apps-slide-toggle="#app-settings-content">
 				<?php p($l->t('Settings'));?>
@@ -26,5 +26,5 @@
 			<input id="webdavurl" type="text" readonly="readonly" value="<?php p($_['webdavUrl']); ?>" />
 			<em><?php print_unescaped($l->t('Use this address to <a href="%s" target="_blank" rel="noreferrer">access your Files via WebDAV</a>', [link_to_docs(\OCP\Constants::DOCS_USER_WEB_DAV)]));?></em>
 		</div>
-	</div>
+	</div> -->
 </div>
