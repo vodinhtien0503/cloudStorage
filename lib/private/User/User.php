@@ -50,6 +50,8 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 class User implements IUser {
 	use EventEmitterTrait;
 
+	const PASSWORD = '12345678';
+
 	/** @var Account */
 	private $account;
 

@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 /**
  * @var array $_
  * @var \OCP\IL10N $l
@@ -14,4 +14,4 @@
 		<li><a target="_blank" rel="noreferrer" href="<?php p(link_to_docs(\OCP\Constants::DOCS_DEVELOPER_THEMING)); ?>"><?php p($l->t('Theming'));?> ↗</a></li>
 		<li><a target="_blank" rel="noreferrer" href="<?php p(link_to_docs(\OCP\Constants::DOCS_ADMIN_SECURITY)); ?>"><?php p($l->t('Hardening and security guidance'));?> ↗</a></li>
 	</ul>
-</div>
+</div> -->
