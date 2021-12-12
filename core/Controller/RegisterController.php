@@ -183,35 +183,6 @@ return new TemplateResponse(
 	 */
 	public function tryRegister($username, $password, $redirect_url) {
 
-		// $currentUser = $this->userSession->getUser();
-
-		// if (!$this->isAdmin) {
-		// 	if (!empty($groups)) {
-		// 		foreach ($groups as $key => $group) {
-		// 			$groupObject = $this->groupManager->get($group);
-		// 			if ($groupObject === null) {
-		// 				unset($groups[$key]);
-		// 				continue;
-		// 			}
-
-		// 			'@phan-var \OC\Group\Manager $this->groupManager';
-		// 			if (!$this->groupManager->getSubAdmin()->isSubAdminofGroup($currentUser, $groupObject)) {
-		// 				unset($groups[$key]);
-		// 			}
-		// 		}
-		// 	}
-
-		// 	'@phan-var \OC\Group\Manager $this->groupManager';
-		// 	if (empty($groups)) {
-		// 		$groups = $this->groupManager->getSubAdmin()->getSubAdminsGroups($currentUser);
-		// 		// New class returns IGroup[] so convert back
-		// 		$gids = [];
-		// 		foreach ($groups as $group) {
-		// 			$gids[] = $group->getGID();
-		// 		}
-		// 		$groups = $gids;
-		// 	}
-		// }
 		$args = [];
 		$regexPassword = '/^(?=.*[0-9])(?=.*[A-Z]).{8,}$/';
 		if (!empty($redirect_url)) {
@@ -219,12 +190,6 @@ return new TemplateResponse(
 		} 
 		'@phan-var \OC\User\Manager $this->userManager';
 		if ($this->userManager->userExists($username)) {
-			// return new DataResponse(
-			// 	[
-			// 		'message' => (string)$this->l10n->t('A user with that name already exists.')
-			// 	],
-			// 	Http::STATUS_CONFLICT
-			// );
 			$this->session->set('registerMessages',[ ['userExists'], []]);
 			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 		}
@@ -245,16 +210,10 @@ return new TemplateResponse(
 			if (!$message) {
 				$message = $this->l10n->t('Unable to create user.');
 			}
-			$this->session->set('loginMessages',[ ['unable'], []]);
+			$this->session->set('registerMessages',[ ['unable'], []]);
 			return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 		}
 
-		// return new DataResponse(
-		// 	[
-		// 		'message' => (string)$this->l10n->t('User was created.')
-		// 	],
-		// 	Http::STATUS_CREATED
-		// );
 		$this->session->set('registerMessages',[ ['created'], []]);
 		return new RedirectResponse($this->urlGenerator->linkToRoute('core.register.showRegisterForm', $args));
 	}

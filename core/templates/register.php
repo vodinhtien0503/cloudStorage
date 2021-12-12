@@ -113,9 +113,15 @@ script('core', [
 		<span><?php p($l->t('Register')); ?></span>
 		<div class="loading-spinner"><div></div><div></div><div></div><div></div></div>
 	</button>
+
 </div>
 <input type="hidden" name="timezone-offset" id="timezone-offset"/>
 <input type="hidden" name="timezone" id="timezone"/>
 <input type="hidden" name="requesttoken" value="<?php p($_['requesttoken']) ?>">
 
 </form>
+<div>
+	<a class="link_login" href="<?php print_unescaped(link_to('index.php', 'login')); ?>">
+		<?php p($l->t('Login?')); ?>
+	</a>
+</div>

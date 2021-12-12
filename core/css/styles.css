@@ -1367,3 +1367,19 @@ fieldset.update legend + p {
     padding-top: 35px;
   }
 }
+.link_login {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+.link_login:hover {
+  color: red;
+}
+.link_register {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+}
+.link_register:hover {
+  color: red;
+}
