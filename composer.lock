@@ -2526,16 +2526,16 @@
         },
         {
             "name": "punic/punic",
-            "version": "3.6.1",
+            "version": "3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/punic/punic.git",
-                "reference": "046917d7bb931ab944c0995898608491820fcdf9"
+                "reference": "6e14078c3848030a69401125b2665f8bc84ba386"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punic/punic/zipball/046917d7bb931ab944c0995898608491820fcdf9",
-                "reference": "046917d7bb931ab944c0995898608491820fcdf9",
+                "url": "https://api.github.com/repos/punic/punic/zipball/6e14078c3848030a69401125b2665f8bc84ba386",
+                "reference": "6e14078c3848030a69401125b2665f8bc84ba386",
                 "shasum": ""
             },
             "require": {
@@ -2597,7 +2597,7 @@
             ],
             "support": {
                 "issues": "https://github.com/punic/punic/issues",
-                "source": "https://github.com/punic/punic/tree/3.6.1"
+                "source": "https://github.com/punic/punic/tree/3.7.0"
             },
             "funding": [
                 {
@@ -2609,7 +2609,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-18T16:25:23+00:00"
+            "time": "2021-11-16T11:09:43+00:00"
         },
         {
             "name": "react/promise",
