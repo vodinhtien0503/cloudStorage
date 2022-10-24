@@ -2526,16 +2526,16 @@
         },
         {
             "name": "punic/punic",
-            "version": "3.6.1",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/punic/punic.git",
-                "reference": "046917d7bb931ab944c0995898608491820fcdf9"
+                "reference": "f24eb487f05fafe3ab1cbe33f75a589d50a1677f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punic/punic/zipball/046917d7bb931ab944c0995898608491820fcdf9",
-                "reference": "046917d7bb931ab944c0995898608491820fcdf9",
+                "url": "https://api.github.com/repos/punic/punic/zipball/f24eb487f05fafe3ab1cbe33f75a589d50a1677f",
+                "reference": "f24eb487f05fafe3ab1cbe33f75a589d50a1677f",
                 "shasum": ""
             },
             "require": {
@@ -2597,7 +2597,7 @@
             ],
             "support": {
                 "issues": "https://github.com/punic/punic/issues",
-                "source": "https://github.com/punic/punic/tree/3.6.1"
+                "source": "https://github.com/punic/punic/tree/3.8.0"
             },
             "funding": [
                 {
@@ -2609,7 +2609,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-18T16:25:23+00:00"
+            "time": "2022-10-19T09:00:13+00:00"
         },
         {
             "name": "react/promise",
@@ -7059,5 +7059,5 @@
     "platform-overrides": {
         "php": "7.3"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }
